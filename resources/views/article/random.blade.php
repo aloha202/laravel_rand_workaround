@@ -33,8 +33,7 @@
 
                                     <th>Author</th>
                                     <th>Name</th>
-                                    <th>Content</th>
-                                    <th>Write date</th>
+                                    <th>Written</th>
 
                                     <th></th>
                                 </tr>
@@ -46,9 +45,6 @@
 
                                         <td>{{ $article->author_id }}</td>
                                         <td>{{ $article->name }}</td>
-                                        <td>
-                                            {{ $article->content }}
-                                        </td>
                                         <td>
                                             {{ $article->written_at->diffForHumans() }}
                                         </td>
