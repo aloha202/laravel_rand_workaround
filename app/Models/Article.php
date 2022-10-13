@@ -12,4 +12,10 @@ class Article extends Model
     protected $casts = [
         'written_at' => 'datetime'
     ];
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
+
 }
