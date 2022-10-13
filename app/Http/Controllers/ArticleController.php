@@ -11,8 +11,11 @@ class ArticleController extends Controller
 
     public function index()
     {
+        $sub = DB::table('articles')->select('id')->inRandomOrder()->limit(5)
+            ->where('written_at', '<', '2000-01-01')
+            ;
         $articles = Article::query()
-            ->join(DB::raw("(SELECT id FROM articles  ORDER BY RAND() LIMIT 5) rnd"), function($join){
+            ->joinSub($sub,'rnd',  function($join){
                 $join->on('articles.id', '=', 'rnd.id');
             })
                     ->get()
@@ -27,6 +30,7 @@ class ArticleController extends Controller
             ->join(DB::raw("(SELECT CEIL(RAND() * (SELECT MAX(id) FROM articles)) as id) rnd"), function($join){
                 $join->on('articles.id', '>=', 'rnd.id');
             })
+            ->where('articles.written_at', '<', '2000-01-01')
             ->limit(1)
             ;
         $query_to_clone = clone $query;
